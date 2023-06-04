@@ -28,7 +28,7 @@ async function run() {
 
         //Create
         //add new task to database
-        app.post('/tasks',async(req,res) => {
+        app.post('/task',async(req,res) => {
             const newTask = req.body;
             const result = await tasksCollection.insertOne(newTask);
             res.send(result);
@@ -39,6 +39,20 @@ async function run() {
         app.get('/tasks', async (req, res) => {
             const cursor = tasksCollection.find();
             const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        //Update
+        // update task details 
+        app.put('/tasks/:id', async(req,res) => {
+            const id = req.params.id;
+            const {status} = req.body;
+            const filter = { _id: new ObjectId(id) };
+            const options = {upsert: true};
+            const updateTask = {
+                $set: {status: status}
+            }
+            const result = await tasksCollection.updateOne(filter, updateTask, options);
             res.send(result);
         })
 
