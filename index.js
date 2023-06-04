@@ -30,6 +30,10 @@ async function run() {
         //add new task to database
         app.post('/task',async(req,res) => {
             const newTask = req.body;
+            //validation for status filed
+            if (newTask.status === null) {
+                return res.json('Status filed can not be empty');
+            }
             const result = await tasksCollection.insertOne(newTask);
             res.send(result);
         })
