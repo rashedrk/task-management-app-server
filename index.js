@@ -32,6 +32,14 @@ async function run() {
             res.send(result);
         })
 
+        //Read
+        //get all available tasks data
+        app.get('/tasks', async (req, res) => {
+            const cursor = tasksCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
 
 
         // Send a ping to confirm a successful connection
