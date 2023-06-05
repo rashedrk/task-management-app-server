@@ -69,19 +69,19 @@ async function run() {
             res.send(result)
         })
 
-        //Search 
-        //search tasks by status or name
-        app.get('/tasks/search/:text',async(req,res) => {
-            const text = req.params.text;
-            const search = {
-                $or : [
-                    {title: { $regex: text, $options: "i" }},
-                    {status: { $regex: text, $options: "i" }}
-                ]
-            };
-            const result = await tasksCollection.find(search).toArray();
-            res.send(result)
-        })
+        // //Search 
+        // //search tasks by status or name
+        // app.get('/tasks/search/:text',async(req,res) => {
+        //     const text = req.params.text;
+        //     const search = {
+        //         $or : [
+        //             {title: { $regex: text, $options: "i" }},
+        //             {status: { $regex: text, $options: "i" }}
+        //         ]
+        //     };
+        //     const result = await tasksCollection.find(search).toArray();
+        //     res.send(result)
+        // })
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
